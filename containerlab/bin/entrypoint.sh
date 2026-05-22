@@ -17,17 +17,17 @@ fi
 
 echo "[INFO] Loading config: ${CFG_FILE}"
 source "${CFG_FILE}"
-+if [[ "${NODE_ROLE}" == "router" ]]; then
-+    sysctl -w net.ipv4.ip_forward=1 > /dev/null
-+    sysctl -w net.ipv6.conf.all.forwarding=1 > /dev/null
-+    for IFACE in ${IFACES}; do
-+        VARBASE="${IFACE^^}"
-+        ip link set "${IFACE}" up
-+        ip addr flush dev "${IFACE}" 2>/dev/null || true
-+        ip addr add "${!${VARBASE}_IP}/${!${VARBASE}_PREFIX}" dev "${IFACE}"
-+        ip -6 addr add "${!${VARBASE}_IP6}/${!${VARBASE}_PREFIX6}" dev "${IFACE}" nodad
-+    done
-+else
+if [[ "${NODE_ROLE}" == "router" ]]; then
+    sysctl -w net.ipv4.ip_forward=1 > /dev/null
+    sysctl -w net.ipv6.conf.all.forwarding=1 > /dev/null
+    for IFACE in ${IFACES}; do
+        VARBASE="${IFACE^^}"
+        ip link set "${IFACE}" up
+        ip addr flush dev "${IFACE}" 2>/dev/null || true
+        ip addr add "${!${VARBASE}_IP}/${!${VARBASE}_PREFIX}" dev "${IFACE}"
+        ip -6 addr add "${!${VARBASE}_IP6}/${!${VARBASE}_PREFIX6}" dev "${IFACE}" nodad
+    done
+else
 
 ip link set lo up
 echo "[OK] Loopback interface up"
