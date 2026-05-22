@@ -18,6 +18,7 @@ fi
 echo "[INFO] Loading config: ${CFG_FILE}"
 source "${CFG_FILE}"
 if [[ "${NODE_ROLE}" == "router" ]]; then
+ip link set lo up
     sysctl -w net.ipv4.ip_forward=1 > /dev/null
     sysctl -w net.ipv6.conf.all.forwarding=1 > /dev/null
     for IFACE in ${IFACES}; do
@@ -42,6 +43,7 @@ ip link set "${ETH1_INTERFACE}" up
 echo "[OK] ${ETH1_INTERFACE} interface up"
 
 ip addr flush dev "${ETH1_INTERFACE}" 2>/dev/null || true
+ip -6 addr flush dev "${ETH1_INTERFACE}" 2>/dev/null || true
 ip addr add "${NODE_IP}/${NODE_PREFIX}" dev "${ETH1_INTERFACE}"
 echo "[OK] IPv4 configured: ${NODE_IP}/${NODE_PREFIX}"
 
@@ -68,3 +70,4 @@ else
 fi
 
 echo "[INFO] Node ${HOSTNAME} ready"
+fi
