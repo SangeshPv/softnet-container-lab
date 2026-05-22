@@ -22,7 +22,7 @@ topology:
 
     rt1:
       binds:
-        - configs/rt2.cfg:/etc/nodes/rt1.cfg:ro
+        - configs/rt1.cfg:/etc/nodes/rt1.cfg:ro
         - bin/entrypoint.sh:/entrypoint.sh:ro
       exec:
         - bash /entrypoint.sh
@@ -32,6 +32,6 @@ topology:
         - hs1:eth1
         - rt1:eth1
     - endpoints:
-        - rt1:eth1
-        - hs2:eth2
+        - rt1:eth2
+        - hs2:eth1
         
