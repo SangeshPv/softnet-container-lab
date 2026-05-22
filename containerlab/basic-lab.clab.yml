@@ -13,16 +13,16 @@ topology:
       exec:
         - bash /entrypoint.sh
        
-         hs2:
+    hs2:
       binds:
         - configs/hs2.cfg:/etc/nodes/hs2.cfg:ro
         - bin/entrypoint.sh:/entrypoint.sh:ro
       exec:
         - bash /entrypoint.sh
 
-    rt2:
+    rt1:
       binds:
-        - configs/rt2.cfg:/etc/nodes/rt2.cfg:ro
+        - configs/rt2.cfg:/etc/nodes/rt1.cfg:ro
         - bin/entrypoint.sh:/entrypoint.sh:ro
       exec:
         - bash /entrypoint.sh
@@ -32,5 +32,6 @@ topology:
         - hs1:eth1
         - rt1:eth1
     - endpoints:
-        - hs2:eth2
         - rt1:eth1
+        - hs2:eth2
+        
