@@ -29,6 +29,7 @@ if [[ "${NODE_ROLE}" == "router" ]]; then
     done
 else
 
+
 ip link set lo up
 echo "[OK] Loopback interface up"
 
@@ -40,8 +41,8 @@ ip addr add "${NODE_IP}/${NODE_PREFIX}" dev "${ETH1_INTERFACE}"
 echo "[OK] IPv4 configured: ${NODE_IP}/${NODE_PREFIX}"
 
 ip -6 addr add "${NODE_IP6}/${NODE_PREFIX6}" dev "${ETH1_INTERFACE}" nodad
-+ip route add default via "${GW_IP}"
-+ip -6 route add default via "${GW_IP6}"
+ip route add default via "${GW_IP}"
+ip -6 route add default via "${GW_IP6}"
 echo "[OK] IPv6 configured: ${NODE_IP6}/${NODE_PREFIX6}"
 
 echo ""
@@ -62,3 +63,4 @@ else
 fi
 
 echo "[INFO] Node ${HOSTNAME} ready"
+fi
