@@ -24,11 +24,16 @@ if [[ "${NODE_ROLE}" == "router" ]]; then
         VARBASE="${IFACE^^}"
         ip link set "${IFACE}" up
         ip addr flush dev "${IFACE}" 2>/dev/null || true
-        ip addr add "${!${VARBASE}_IP}/${!${VARBASE}_PREFIX}" dev "${IFACE}"
-        ip -6 addr add "${!${VARBASE}_IP6}/${!${VARBASE}_PREFIX6}" dev "${IFACE}" nodad
+        IP_VAR="${VARBASE}_IP"
+        PREFIX_VAR="${VARBASE}_PREFIX"
+        ip addr add "${!IP_VAR}/${!PREFIX_VAR}" dev "${IFACE}"
+
+        IP6_VAR="${VARBASE}_IP6"
+        PREFIX6_VAR="${VARBASE}_PREFIX6"
+ip -6 addr add "${!IP6_VAR}/${!PREFIX6_VAR}" dev "${IFACE}" nodad
+
     done
 else
-
 
 ip link set lo up
 echo "[OK] Loopback interface up"
@@ -63,4 +68,3 @@ else
 fi
 
 echo "[INFO] Node ${HOSTNAME} ready"
-fi
